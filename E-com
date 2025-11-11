@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mini E-Commerce</title>
+  <style>
+    body {font-family: Arial; background:#f3f3f3; text-align:center;}
+    h2 {color:#333;}
+    #products {display:flex; flex-wrap:wrap; justify-content:center;}
+    .card {background:white; padding:10px; margin:10px; width:150px; border-radius:10px; box-shadow:0 2px 5px gray;}
+    img {width:100%; border-radius:10px;}
+    button {background:#28a745; color:white; border:none; padding:5px 10px; border-radius:5px;}
+  </style>
+</head>
+<body>
+  <h2>🛍️ Mini E-Commerce Store</h2>
+  <div id="products"></div>
+
+  <script>
+    async function loadProducts() {
+      let res = await fetch("https://fakestoreapi.com/products?limit=6");
+      let data = await res.json();
+      let out = "";
+      data.forEach(p => {
+        out += `<div class='card'>
+                  <img src='${p.image}'><br>
+                  <b>${p.title.slice(0,20)}...</b><br>
+                  $${p.price}<br>
+                  <button>Add to Cart</button>
+                </div>`;
+      });
+      document.getElementById("products").innerHTML = out;
+    }
+    loadProducts();
+  </script>
+</body>
+</html>

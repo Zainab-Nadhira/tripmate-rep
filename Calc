@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Front-End Lab Project</title>
+
+  <style>
+    /* ===== Basic Reset & Layout ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    input, button, select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .output {
+      margin-top: 10px;
+      padding: 10px;
+      min-height: 30px;
+      border: 1px dashed #aaa;
+      border-radius: 8px;
+      background: #f9f9f9;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 id="title">My Project</h1>
+    
+    <!-- Dynamic UI Section -->
+    <input type="text" id="input1" placeholder="Enter something..." />
+    <input type="text" id="input2" placeholder="Optional second input..." />
+    <button id="actionBtn">Submit</button>
+    
+    <div class="output" id="output">Output will appear here...</div>
+  </div>
+
+  <script>
+    // ===== Universal JS Setup =====
+
+    // Elements
+    const btn = document.getElementById('actionBtn');
+    const output = document.getElementById('output');
+
+    // Example function — you can replace with any logic (Calculator, Quiz, etc.)
+    btn.addEventListener('click', () => {
+      const val1 = document.getElementById('input1').value;
+      const val2 = document.getElementById('input2').value;
+
+      // Example: Calculator Addition
+      if(!isNaN(val1) && !isNaN(val2) && val1 && val2){
+        output.innerText = Result: ${Number(val1) + Number(val2)};
+      } 
+      // Example: API call
+      else if(val1.toLowerCase() === 'joke') {
+        getJokeFromAPI();
+      } 
+      else {
+        output.innerText = You entered: ${val1};
+      }
+    });
+
+    // ===== Sample API Integration =====
+    async function getJokeFromAPI() {
+      output.innerText = "Loading joke...";
+      try {
+        const res = await fetch("https://api.chucknorris.io/jokes/random");
+        const data = await res.json();
+        output.innerText = data.value;
+      } catch (error) {
+        output.innerText = "Error fetching data.";
+      }
+    }
+
+     </script>
+</body>
+</html>
